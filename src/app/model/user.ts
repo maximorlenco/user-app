@@ -1,6 +1,6 @@
 export interface User {
   firsName: string;
   lastName: string;
-  age: number;
+  age: any;
   city: string;
 }

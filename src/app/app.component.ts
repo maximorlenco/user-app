@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from './model/user';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'users-project';
 
-  firstNameFilter = 'John';
+  filterValue: any;
+
+  filterParameter: string;
 
   users: User[] = [
     {
@@ -24,16 +27,60 @@ export class AppComponent {
       age: 35,
       city: 'Los Angeles'
     }
+    ,
+    {
+      firsName: 'Wilhelm',
+      lastName: 'Connor',
+      age: 35,
+      city: 'Los Angeles'
+    }
+    ,
+    {
+      firsName: 'John',
+      lastName: 'Connor',
+      age: 23,
+      city: 'Los Angeles'
+    }
   ];
+  @Input()
+  path: string;
 
-  filter(firstName: string): User[] {
-    const filteredUsers: User[] = [];
-    this.users.forEach(user => {
-      if (user.firsName === firstName) {
-        filteredUsers.push(user);
-      }
+  constructor(private route: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.filterValue = params.value;
+      this.filterParameter = params.parameter;
     });
-    return filteredUsers;
+  }
+
+  filter(filterParameter: string, filterValue: any): User[] {
+    const filteredUsers: User[] = [];
+    if (filterParameter === 'firsName') {
+      console.log('filter');
+      this.users.forEach(user => {
+        if (user[filterParameter] === filterValue) {
+          filteredUsers.push(user);
+        }
+      });
+      return filteredUsers;
+    } else if (filterParameter === 'age') {
+      this.users.forEach(user => {
+        if (user.age === filterValue) {
+          filteredUsers.push(user);
+        }
+      });
+      return filteredUsers;
+    } else {
+      this.users.forEach(user => {
+        if (user.city === filterValue) {
+          filteredUsers.push(user);
+        }
+      });
+      return filteredUsers;
+    }
+
   }
 
 }
