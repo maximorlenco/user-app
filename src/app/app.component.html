@@ -1,5 +1,4 @@
-<app-user-component *ngFor="let user of filter(firstNameFilter)" [user]="user">
+<app-user-component *ngFor="let user of filter(filterParameter,filterValue)" [user]="user">
 </app-user-component>
-
 
 <router-outlet></router-outlet>
