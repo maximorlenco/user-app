@@ -11,7 +11,7 @@ export class AppComponent  implements OnInit{
   title = 'users-project';
 
   @Input()
-  filterValue: string;
+  filterValue: any;
 
   @Input()
   filterParameter: string;
@@ -50,26 +50,23 @@ export class AppComponent  implements OnInit{
   constructor(private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      console.log(params);
       this.filterValue = params.value;
       this.filterParameter = params.parameter;
-      console.log(this.filterParameter);
     });
   }
 
   filter(filterParameter: string , filterValue: any ): User[] {
     const filteredUsers: User[] = [];
-    if (filterParameter === 'first-name'){
-      console.log('name filter');
+    if (filterParameter === 'firsName'){
       this.users.forEach(user => {
-      if (user.firsName === filterValue) {
+      if (user[filterParameter] === filterValue) {
         filteredUsers.push(user);
       }
     });
       return filteredUsers;
     }else if (filterParameter === 'age'){
       this.users.forEach(user => {
-        if (user.age == filterValue) {
+        if (user.age === filterValue) {
           filteredUsers.push(user);
         }
       });
