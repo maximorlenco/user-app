@@ -7,13 +7,11 @@ import {ActivatedRoute} from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  implements OnInit{
+export class AppComponent implements OnInit {
   title = 'users-project';
 
-  @Input()
   filterValue: any;
 
-  @Input()
   filterParameter: string;
 
   users: User[] = [
@@ -47,7 +45,9 @@ export class AppComponent  implements OnInit{
   @Input()
   path: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.filterValue = params.value;
@@ -55,23 +55,24 @@ export class AppComponent  implements OnInit{
     });
   }
 
-  filter(filterParameter: string , filterValue: any ): User[] {
+  filter(filterParameter: string, filterValue: any): User[] {
     const filteredUsers: User[] = [];
-    if (filterParameter === 'firsName'){
+    if (filterParameter === 'firsName') {
+      console.log('filter');
       this.users.forEach(user => {
-      if (user[filterParameter] === filterValue) {
-        filteredUsers.push(user);
-      }
-    });
+        if (user[filterParameter] === filterValue) {
+          filteredUsers.push(user);
+        }
+      });
       return filteredUsers;
-    }else if (filterParameter === 'age'){
+    } else if (filterParameter === 'age') {
       this.users.forEach(user => {
         if (user.age === filterValue) {
           filteredUsers.push(user);
         }
       });
       return filteredUsers;
-    }else {
+    } else {
       this.users.forEach(user => {
         if (user.city === filterValue) {
           filteredUsers.push(user);

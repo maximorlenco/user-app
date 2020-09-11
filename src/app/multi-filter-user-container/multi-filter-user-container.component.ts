@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user';
 import {ActivatedRoute} from '@angular/router';
 
@@ -9,16 +9,12 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class MultiFilterUserContainerComponent implements OnInit {
 
-  @Input()
   firstParameter: string;
 
-  @Input()
   lastParameter: string;
 
-  @Input()
   firstValue: any;
 
-  @Input()
   lastValue: any;
 
   users: User[] = [
@@ -63,10 +59,11 @@ export class MultiFilterUserContainerComponent implements OnInit {
     });
   }
 
-  filter(firstParameter: string, firstValue: any, lastParameter: string, lastValue: any): User[] {
+  filter1(firstParameter: string, firstValue: any, lastParameter: string, lastValue: any): User[] {
     const filteredUsers: User[] = [];
     this.users.forEach(user => {
-      if (user[firstParameter] === firstValue && user[lastParameter] === Number(lastValue)) {
+      console.log('filter1');
+      if (user[firstParameter].toString() === firstValue && user[lastParameter].toString() === lastValue) {
         filteredUsers.push(user);
       }
     });
